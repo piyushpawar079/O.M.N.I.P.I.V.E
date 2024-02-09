@@ -1,0 +1,85 @@
+import datetime as dt
+import os
+import time
+import webbrowser as wb
+from iso639 import to_iso639_1, NonExistentLanguageError
+from googletrans import Translator
+from mtranslate import translate
+import pyttsx3
+import pyautogui as pyg
+import langid
+import pywhatkit as pyw
+import speech_recognition as sr
+
+language_code = 'en'
+language = 'English'
+
+
+def ask_language():
+    global language
+    say('In which language your are going to give commands?')
+    language = take_command()
+    get_language_code(language)
+
+
+def say(text):
+    engine = pyttsx3.init()
+    engine.setProperty('rate', 150)  # Speed of speech
+    engine.setProperty('volume', 3.0)
+    engine.say(text)
+    engine.runAndWait()
+
+
+def wishme():
+    hour = int(dt.datetime.now().hour)
+    tt = time.strftime('%I:%M %p')
+
+    if 0 < hour < 12:
+        say(f'Good Morning Sir. Its {tt}')
+    elif 12 <= hour < 18:
+        say(f"Good Afternoon Sir. Its {tt}")
+    else:
+        say(f"Good Evening Sir, Its {tt}")
+    # say("Hello Sir, I am omnipive (a virtual assistant). How may I help you sir?")
+
+
+def get_language_code(language_name):
+    global language_code
+    # Convert the language name to lowercase for case-insensitive matching
+    language_name = language_name.lower()
+
+    try:
+        # Get the ISO 639-1 language code by name
+        language_code = to_iso639_1(language_name)
+    except NonExistentLanguageError:
+        print("Error")
+
+
+def take_command():
+    global language_code
+    recognizer = sr.Recognizer()
+
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio_data = recognizer.listen(source)
+
+    try:
+        print("Recognizing...")
+        text = recognizer.recognize_google(audio_data, language=language_code)
+        print(f"User Said (original): {text}")
+
+        translator = Translator()
+
+        translation = translator.translate(text, src=language, dest='en')
+        translated_text = translation.text
+
+        print(f"Translated to English: {translated_text}")
+        return translated_text
+
+    except sr.UnknownValueError:
+        print("Sorry, could not understand audio.")
+        return None
+
+    except sr.RequestError as e:
+        print(f"Error making the request: {e}")
+        return None
