@@ -1,5 +1,6 @@
 import g4f
 
+from OMNIPIVE.Functions.input_output_functions import say
 
 messages = [
     {"role": "system", "content": "I'm the latest J.A.R.V.I.S. AI, designed by Piyush Pawar with capabilities to access systems through various programming languages "
@@ -40,4 +41,4 @@ def ChatGpt(text):
             'content': m
         }
     )
-    return m
+    say(m)

@@ -1,0 +1,167 @@
+{
+  "intents": [
+    {
+      "tag": "greetings",
+      "patterns": ["Hi", "Hello", "Hey there", "Good morning", "Good afternoon", "Good evening"],
+      "responses": ["Hello! How can I assist you today?", "Hi there! What can I help you with?", "Hey! How can I assist you?"],
+      "context": [""]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Goodbye", "Bye", "See you later", "Take care"],
+      "responses": ["Goodbye! Have a great day!", "See you later! Take care!", "Bye! Have a wonderful day!"],
+      "context": [""]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thank you", "Thanks", "Thanks a lot", "Thank you so much"],
+      "responses": ["You're welcome!", "No problem!", "Glad I could help!"],
+      "context": [""]
+    },
+    {
+      "tag": "weather",
+      "patterns": [
+        "What's the weather like?",
+        "How's the weather today?",
+        "Weather forecast"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "open websites",
+      "patterns": [
+        "open google",
+        "open youtube",
+        "open chat gpt",
+        "open gemini"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "open apps",
+      "patterns": [
+        "open vs code",
+        "open notepad",
+        "open command prompt"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "functions",
+      "patterns": [
+        "what are your functions"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "change language",
+      "patterns": [
+        "i want to change language"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "introduction",
+      "patterns": [
+        "introduce yourself"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "ip address",
+      "patterns": [
+        "what is my ip address"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "take notes",
+      "patterns": [
+        "i want you to take notes"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "tell jokes",
+      "patterns": [
+        "tell me jocks"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "set alarm",
+      "patterns": [
+        "set alarm"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "take screenshot",
+      "patterns": [
+        "take screenshot"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "wait",
+      "patterns": [
+        "wait"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "battery",
+      "patterns": [
+        "battery"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "chatgpt",
+      "patterns": [
+        "chatgpt"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "exit",
+      "patterns": [
+        "exit"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "games",
+      "patterns": [
+        "i want to play games"
+      ],
+      "responses": [""],
+      "context": [""]
+    }
+  ]
+}

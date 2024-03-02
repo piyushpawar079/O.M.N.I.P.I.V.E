@@ -1,14 +1,8 @@
 import datetime as dt
-import os
 import time
-import webbrowser as wb
 from iso639 import to_iso639_1, NonExistentLanguageError
 from googletrans import Translator
-from mtranslate import translate
 import pyttsx3
-import pyautogui as pyg
-import langid
-import pywhatkit as pyw
 import speech_recognition as sr
 
 language_code = 'en'
@@ -18,14 +12,26 @@ language = 'English'
 def ask_language():
     global language
     say('In which language your are going to give commands?')
+    prev_lang = language
     language = take_command()
     get_language_code(language)
+    if prev_lang != language:
+        say(f'Language has been changed from {prev_lang} to {language} ')
+    else:
+        say(f'The language is {language} now')
 
 
 def say(text):
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)  # Speed of speech
+    # voice = engine.getProperty('voices')
+    # engine.setProperty('voice', voice[1].id)
+    # print(voice[1].id)
     engine.setProperty('volume', 3.0)
+    # translator = Translator()
+    # translation = translator.translate(text, src='en', dest='hi')
+    # translated_text = translation.text
+    # print(translated_text)
     engine.say(text)
     engine.runAndWait()
 
@@ -40,7 +46,7 @@ def wishme():
         say(f"Good Afternoon Sir. Its {tt}")
     else:
         say(f"Good Evening Sir, Its {tt}")
-    # say("Hello Sir, I am omnipive (a virtual assistant). How may I help you sir?")
+    # say("Hello Sir, I am OMNIPIVE (a virtual assistant). How may I help you sir?")
 
 
 def get_language_code(language_name):
@@ -68,18 +74,20 @@ def take_command():
         text = recognizer.recognize_google(audio_data, language=language_code)
         print(f"User Said (original): {text}")
 
-        translator = Translator()
+        if language_code != 'en':
+            translator = Translator()
 
-        translation = translator.translate(text, src=language, dest='en')
-        translated_text = translation.text
+            translation = translator.translate(text, src=language, dest='en')
+            translated_text = translation.text
 
-        print(f"Translated to English: {translated_text}")
-        return translated_text
+            print(f"Translated to English: {translated_text}")
+            return translated_text
+        return text
 
     except sr.UnknownValueError:
-        print("Sorry, could not understand audio.")
-        return None
+        # print("Sorry, could not understand audio.")
+        return ''
 
     except sr.RequestError as e:
-        print(f"Error making the request: {e}")
-        return None
+        # print(f"Error making the request: {e}")
+        return ''
