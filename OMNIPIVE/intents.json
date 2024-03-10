@@ -2,13 +2,13 @@
   "intents": [
     {
       "tag": "greetings",
-      "patterns": ["Hi", "Hello", "Hey there", "Good morning", "Good afternoon", "Good evening"],
+      "patterns": ["Hi", "Hello", "Hey there", "Good morning", "Good afternoon", "Good evening", "Whats app", "namaste"],
       "responses": ["Hello! How can I assist you today?", "Hi there! What can I help you with?", "Hey! How can I assist you?"],
       "context": [""]
     },
     {
-      "tag": "goodbye",
-      "patterns": ["Goodbye", "Bye", "See you later", "Take care"],
+      "tag": "exit",
+      "patterns": ["exit", "shutdown", "close yourself"],
       "responses": ["Goodbye! Have a great day!", "See you later! Take care!", "Bye! Have a wonderful day!"],
       "context": [""]
     },
@@ -60,7 +60,10 @@
     {
       "tag": "functions",
       "patterns": [
-        "what are your functions"
+        "what are your functions",
+        "what can you do?",
+        "how can you help?",
+        "what are the functions that you can perform"
       ],
       "responses": [
         ""
@@ -70,7 +73,9 @@
     {
       "tag": "change language",
       "patterns": [
-        "i want to change language"
+        "i want to change language",
+        "Change the language",
+        "can you change the language"
       ],
       "responses": [""],
       "context": [""]
@@ -78,7 +83,10 @@
     {
       "tag": "introduction",
       "patterns": [
-        "introduce yourself"
+        "introduce yourself",
+        "Tell me about yourself",
+        "who are you?",
+        "give me an intro"
       ],
       "responses": [""],
       "context": [""]
@@ -86,7 +94,8 @@
     {
       "tag": "ip address",
       "patterns": [
-        "what is my ip address"
+        "what is my ip address",
+        "ip address"
       ],
       "responses": [""],
       "context": [""]
@@ -94,7 +103,8 @@
     {
       "tag": "take notes",
       "patterns": [
-        "i want you to take notes"
+        "i want you to take notes",
+        "take notes"
       ],
       "responses": [""],
       "context": [""]
@@ -102,7 +112,8 @@
     {
       "tag": "tell jokes",
       "patterns": [
-        "tell me jocks"
+        "tell me jocks",
+        "tell jocks"
       ],
       "responses": [""],
       "context": [""]
@@ -110,7 +121,13 @@
     {
       "tag": "set alarm",
       "patterns": [
-        "set alarm"
+        "set alarm",
+        "set an alarm",
+        "i want to set an alarm",
+        "i want to set an reminder",
+        "remind me after ",
+        "set a reminder",
+        "remind"
       ],
       "responses": [""],
       "context": [""]
@@ -118,7 +135,8 @@
     {
       "tag": "take screenshot",
       "patterns": [
-        "take screenshot"
+        "take screenshot",
+        "can you take screenshot"
       ],
       "responses": [""],
       "context": [""]
@@ -126,7 +144,10 @@
     {
       "tag": "wait",
       "patterns": [
-        "wait"
+        "wait",
+        "wait for some time",
+        "sleep",
+        "sleep for some time"
       ],
       "responses": [""],
       "context": [""]
@@ -134,7 +155,9 @@
     {
       "tag": "battery",
       "patterns": [
-        "battery"
+        "battery",
+        "what is the battery percentage of the laptop",
+        "what is the battery percentage"
       ],
       "responses": [""],
       "context": [""]
@@ -142,15 +165,10 @@
     {
       "tag": "chatgpt",
       "patterns": [
-        "chatgpt"
-      ],
-      "responses": [""],
-      "context": [""]
-    },
-    {
-      "tag": "exit",
-      "patterns": [
-        "exit"
+        "chatgpt",
+        "ask chatgpt",
+        "who is",
+        "what is"
       ],
       "responses": [""],
       "context": [""]
@@ -158,7 +176,8 @@
     {
       "tag": "games",
       "patterns": [
-        "i want to play games"
+        "i want to play games",
+        "i am boarded"
       ],
       "responses": [""],
       "context": [""]

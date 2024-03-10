@@ -6,12 +6,10 @@ from OMNIPIVE.Functions.Open_Close_Apps import Apps
 from OMNIPIVE.Functions.basic_functions import Basic_functions
 from neuralintents import BasicAssistant
 from OMNIPIVE.LLM import ChatGPT
-from OMNIPIVE.Games.Pong import Pong
 
 w = Websites()
 app = Apps()
 b = Basic_functions()
-pong = Pong()
 mappings = {
     "open websites": w.open_website,
     "open apps": app.open_apps,
@@ -27,18 +25,18 @@ mappings = {
     "battery": b.battery,
     "chatgpt": ChatGPT.ChatGpt,
     "exit": b.exit,
-    "games": pong.main
+    "games": b.Game
 }
 
-assistant = BasicAssistant('intents.json', method_mappings=mappings)
+assistant = BasicAssistant(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\intents.json', method_mappings=mappings)
 if os.path.exists('basic_model.keras'):
     assistant.load_model()
 else:
     assistant.fit_model()
     assistant.save_model()
 
-wishme()
-ask_language()
+# wishme()
+# ask_language()
 
 while True:
     say('Waiting for your commands sir!')

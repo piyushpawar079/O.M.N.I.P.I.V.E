@@ -34,6 +34,7 @@ def say(text):
     # print(translated_text)
     engine.say(text)
     engine.runAndWait()
+    engine.stop()
 
 
 def wishme():
