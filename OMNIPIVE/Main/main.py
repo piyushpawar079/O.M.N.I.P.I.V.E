@@ -6,10 +6,12 @@ from OMNIPIVE.Functions.Open_Close_Apps import Apps
 from OMNIPIVE.Functions.basic_functions import Basic_functions
 from neuralintents import BasicAssistant
 from OMNIPIVE.LLM import ChatGPT
+from OMNIPIVE.Functions.Personalized import Personalized
 
 w = Websites()
 app = Apps()
 b = Basic_functions()
+p = Personalized()
 mappings = {
     "open websites": w.open_website,
     "open apps": app.open_apps,
@@ -25,10 +27,15 @@ mappings = {
     "battery": b.battery,
     "chatgpt": ChatGPT.ChatGpt,
     "exit": b.exit,
-    "games": b.Game
+    "games": b.Game,
+    "mail": b.mail,
+    "weather": p.get_weather_info,
+    "news": p.get_news,
+    "stock": p.get_news,
+    "change_preferences": p.change_preferences
 }
 
-assistant = BasicAssistant(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\intents.json', method_mappings=mappings)
+assistant = BasicAssistant(intents_data='intents.json', method_mappings=mappings)
 if os.path.exists('basic_model.keras'):
     assistant.load_model()
 else:
@@ -37,6 +44,7 @@ else:
 
 # wishme()
 # ask_language()
+p.check_for_user()
 
 while True:
     say('Waiting for your commands sir!')

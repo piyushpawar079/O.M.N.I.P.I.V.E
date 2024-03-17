@@ -11,7 +11,7 @@ def manage():
     say('Tell me sir which game would you like to play?')
     query = take_command()
     if 'pong' in query.lower() or 'second' in query.lower():
-        say('Launching Ping Pong game for you sir..')
+        say('Launching Pong game for you sir..')
         pyg.press('up')
         time.sleep(2)
         keyboard.press('enter')
@@ -20,6 +20,9 @@ def manage():
         say('Launching tic tac toe game for you sir..')
         keyboard.press('enter')
         ttt()
+    else:
+        pyg.moveTo(x=1486, y=170)
+        pyg.click()
 
 
 def pong():
@@ -77,6 +80,7 @@ def pong():
                 pyg.moveTo(x=943, y=476)
                 time.sleep(1)
                 pyg.click()
+        manage()
 
 
 def ttt():

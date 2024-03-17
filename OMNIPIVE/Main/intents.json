@@ -33,6 +33,48 @@
       ]
     },
     {
+      "tag": "news",
+      "patterns": [
+        "What's the news today?",
+        "can you tell me the news for today?",
+        "news"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "stock",
+      "patterns": [
+        "tell me stock related news today",
+        "How's the stock performing today?",
+        "stocks"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
+      "tag": "change_preferences",
+      "patterns": [
+        "can you change my preferences?",
+        "I want to change my preferences",
+        "change preferences"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "open websites",
       "patterns": [
         "open google",
@@ -63,7 +105,8 @@
         "what are your functions",
         "what can you do?",
         "how can you help?",
-        "what are the functions that you can perform"
+        "what are the functions that you can perform",
+        "functions"
       ],
       "responses": [
         ""
@@ -75,7 +118,8 @@
       "patterns": [
         "i want to change language",
         "Change the language",
-        "can you change the language"
+        "can you change the language",
+        "change language"
       ],
       "responses": [""],
       "context": [""]
@@ -86,7 +130,8 @@
         "introduce yourself",
         "Tell me about yourself",
         "who are you?",
-        "give me an intro"
+        "give me an intro",
+        "introduction"
       ],
       "responses": [""],
       "context": [""]
@@ -166,9 +211,7 @@
       "tag": "chatgpt",
       "patterns": [
         "chatgpt",
-        "ask chatgpt",
-        "who is",
-        "what is"
+        "ask chatgpt"
       ],
       "responses": [""],
       "context": [""]
@@ -177,7 +220,18 @@
       "tag": "games",
       "patterns": [
         "i want to play games",
-        "i am boarded"
+        "i am boarded",
+        "games"
+      ],
+      "responses": [""],
+      "context": [""]
+    },
+    {
+      "tag": "mail",
+      "patterns": [
+        "can you send mails?",
+        "i want to send mail",
+        "mail"
       ],
       "responses": [""],
       "context": [""]

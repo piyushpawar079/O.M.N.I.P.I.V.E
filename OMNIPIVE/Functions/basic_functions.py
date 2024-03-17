@@ -3,7 +3,10 @@ import os
 import sys
 import threading
 from datetime import datetime
+from email.message import EmailMessage
+import imghdr
 
+import smtplib
 import psutil
 import pyautogui as pyg
 import pyjokes
@@ -22,6 +25,10 @@ class Basic_functions:
     def take_notes(self):
         say('What should i name the text file sir?')
         query = take_command()
+        if 'name it as' in query.lower() or 'give the name as' in query.lower() or 'give name as' in query.lower():
+            query = query.lower().replace('name it as', '')
+            query = query.lower().replace('give the name as', '')
+            query = query.lower().replace('give name as', '')
         file_name = query + '-notes.txt'
         d = os.getcwd()
         if not os.path.exists(r'\Notes'):
@@ -109,6 +116,85 @@ class Basic_functions:
         game_thread = threading.Thread(target=manage)
         game_thread.start()
         main()
+
+    def mail(self):
+        flag = False
+        say('tell me the gmail id of the person you want to send the mail to (without the @gmail.com)')
+        query = take_command().lower()
+        l = query.split()
+        recipient = ''
+        for i in l:
+            recipient += i.lower()
+        recipient += '@gmail.com'
+        print(recipient)
+        sender_email = "miniproject437@gmail.com"
+        sender_password = "rjgu hyjo svta clwy"
+        say('do you want to set the subject of the mail? (please reply in yes or no)')
+        query = take_command()
+        if 'no' in query.lower():
+            say('okay sir')
+            subject = ''
+        else:
+            say('Okay sir, tell me the what should i write')
+            query = take_command()
+            subject = query
+
+        say("tell me the body content of the mail sir")
+        body = ''
+        while True:
+            query = take_command()
+            body += query
+            say('Do you want to add anything else sir?')
+            query = take_command()
+            if 'no' in query.lower():
+                say('okay sir')
+                break
+            say('Tell me sir what should i add')
+
+        say('do you want to attach anything to the mail sir?')
+        query = take_command()
+
+        if 'no' in query.lower():
+            say('okay sir sending the mail')
+        else:
+            flag = True
+            say('tell me sir which document should i attach?')
+            query = take_command()
+            photos = ['groupphoto']
+            pdfs = ['machinelearning']
+            name = ''
+
+            for i in query.split():
+                name += i
+            if photos[0] in name:
+                main_type = 'image'
+                name = 'groupphoto.jpeg'
+                with open(name, 'rb') as f:
+                    file_data = f.read()
+                    sub_type = imghdr.what(f.name)
+                    file_name = f.name
+            elif pdfs[0] in name:
+                name = 'machinelearning.pdf'
+                main_type = 'application'
+                sub_type = 'octet-stream'
+                with open(name, 'rb') as f:
+                    file_data = f.read()
+                    file_name = f.name
+
+        em = EmailMessage()
+
+        em['From'] = sender_email
+        em['To'] = recipient
+        em['Subject'] = subject
+        em.set_content(body)
+
+        if flag:
+            em.add_attachment(file_data, maintype=main_type, subtype=sub_type, filename=file_name)
+
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as f:
+            f.login(sender_email, sender_password)
+            f.send_message(em)
+            say('Done sending the email sir.')
 
     def take_screenshot(self):
         say('Do you want to give a name to the screenshot?')

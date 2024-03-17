@@ -14,7 +14,7 @@ class Apps:
 
     def open_apps(self, query):
         for key, value in self.apps.items():
-            if f'open {key}'.lower() in query.lower():
+            if 'open' in query.lower() and f'{key}'.lower() in query.lower():
                 say(f'Opening {key} sir.')
                 if f'{key}' == 'command prompt':
                     os.system('start cmd')
@@ -24,7 +24,7 @@ class Apps:
 
     def close_apps(self, query):
         for key, value in self.apps.items():
-            if f'close {key}'.lower() in query.lower():
+            if 'close' in query.lower() and f'{key}'.lower() in query.lower():
                 say(f'Closing {key} sir.')
                 os.system(f'taskkill /F /im {key}.exe')
                 time.sleep(1)

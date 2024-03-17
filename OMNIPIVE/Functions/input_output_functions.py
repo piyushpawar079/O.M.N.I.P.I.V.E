@@ -52,11 +52,9 @@ def wishme():
 
 def get_language_code(language_name):
     global language_code
-    # Convert the language name to lowercase for case-insensitive matching
     language_name = language_name.lower()
 
     try:
-        # Get the ISO 639-1 language code by name
         language_code = to_iso639_1(language_name)
     except NonExistentLanguageError:
         print("Error")
@@ -86,9 +84,7 @@ def take_command():
         return text
 
     except sr.UnknownValueError:
-        # print("Sorry, could not understand audio.")
         return ''
 
     except sr.RequestError as e:
-        # print(f"Error making the request: {e}")
         return ''
