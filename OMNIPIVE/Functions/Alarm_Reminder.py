@@ -84,15 +84,20 @@ class Alarm:
 
     run = True
     voice_input = ''
+    s = ''
 
-    def initialize(self, voice_input):
+    def initialize(self, voice_input, s=None):
         self.voice_input = voice_input
+        self.s = s
 
     def check_and_alarm(self):
         new = AlarmTiming(self.voice_input).get_expected_time().strftime('%H:%M:%S')
         while self.run:
             now = datetime.now().strftime('%H:%M:%S')
             if now == new:
-                say('Sir, You need to wake up now.')
+                if self.s:
+                    say(self.s)
+                else:
+                    say('Sir, You need to wake up now.')
                 break
 

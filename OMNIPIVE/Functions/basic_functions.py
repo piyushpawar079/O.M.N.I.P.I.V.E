@@ -70,6 +70,11 @@ class Basic_functions:
 
         if 'remind' in q.lower():
             flag1 = True
+            say('do you want me to remind you about anything specific sir?')
+            m = take_command()
+            if 'no' in m.lower():
+                say('okay sir')
+
 
         flag = False
         m = ['minutes', 'seconds', 'minute', 'second']
@@ -103,7 +108,7 @@ class Basic_functions:
                     minute = time[2:]
 
                 query = hour + ':' + minute + ' ' + extra
-        self.alarm.initialize(query)
+        self.alarm.initialize(query, m)
         alarm_thread = threading.Thread(target=self.alarm.check_and_alarm)
         alarm_thread.start()
 
@@ -143,6 +148,15 @@ class Basic_functions:
         body = ''
         while True:
             query = take_command()
+            d = ["i don't want to", "nothing", "no", "don't set", "don't"]
+            if query.lower() in d:
+                say("you need to set the body content of the mail sir we can't keep it empty so tell me what should i set to")
+                query = take_command()
+            else:
+                for i in d:
+                    if i == query.lower():
+                        say("you need to set the body content of the mail sir we can't keep it empty so tell me what should i set to")
+                        query = take_command()
             body += query
             say('Do you want to add anything else sir?')
             query = take_command()
@@ -157,6 +171,9 @@ class Basic_functions:
         if 'no' in query.lower():
             say('okay sir sending the mail')
         else:
+            d = os.getcwd()
+            if d != r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Documents':
+                os.chdir(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Documents')
             flag = True
             say('tell me sir which document should i attach?')
             query = take_command()
@@ -180,6 +197,7 @@ class Basic_functions:
                 with open(name, 'rb') as f:
                     file_data = f.read()
                     file_name = f.name
+            say('okay sir sending the mail')
 
         em = EmailMessage()
 
@@ -228,7 +246,7 @@ class Basic_functions:
             query = take_command()
             if not query:
                 continue
-            if 'wake up' in query.lower():
+            if 'wake up' == query.lower():
                 break
         say('Hello sir I am up and ready to receive commands')
 
@@ -238,7 +256,8 @@ class Basic_functions:
         say(f'sir our system has {percentage} percent battery.')
 
     def function(self):
-        say('i can do anything for you sir')
+        say('i can do everything like opening google, youtube and sending mails, setting reminders and alarms taking '
+            'screenshot and notes and many more things sir.')
 
     def exit(self):
         self.alarm.run = False

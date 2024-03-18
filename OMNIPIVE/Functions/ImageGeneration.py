@@ -55,8 +55,11 @@ def generate_image():
                 image_window.destroy()
             break
         elif 'clap' in category.lower():
+            say("Waiting for clap to change the image")
             while True:
-                say("Waiting for clap to change the image")
+                q = take_command()
+                if 'stop' in q.lower() or 'exit' in q.lower():
+                    break
                 if MainClapExe():
                     say(f'Regenerating image of {prev}.')
                     if image_window:

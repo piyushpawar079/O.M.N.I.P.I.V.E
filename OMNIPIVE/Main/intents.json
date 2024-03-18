@@ -47,6 +47,22 @@
       ]
     },
     {
+      "tag": "images",
+      "patterns": [
+        "i want to generate images",
+        "generate an image",
+        "can you generate images",
+        "generate images",
+        "images"
+      ],
+      "responses": [
+        ""
+      ],
+      "context": [
+        ""
+      ]
+    },
+    {
       "tag": "stock",
       "patterns": [
         "tell me stock related news today",

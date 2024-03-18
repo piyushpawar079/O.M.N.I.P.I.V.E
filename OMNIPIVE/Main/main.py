@@ -7,6 +7,7 @@ from OMNIPIVE.Functions.basic_functions import Basic_functions
 from neuralintents import BasicAssistant
 from OMNIPIVE.LLM import ChatGPT
 from OMNIPIVE.Functions.Personalized import Personalized
+from OMNIPIVE.Functions.ImageGeneration import generate_image
 
 w = Websites()
 app = Apps()
@@ -32,7 +33,8 @@ mappings = {
     "weather": p.get_weather_info,
     "news": p.get_news,
     "stock": p.get_news,
-    "change_preferences": p.change_preferences
+    "change_preferences": p.change_preferences,
+    "images": generate_image
 }
 
 assistant = BasicAssistant(intents_data='intents.json', method_mappings=mappings)
