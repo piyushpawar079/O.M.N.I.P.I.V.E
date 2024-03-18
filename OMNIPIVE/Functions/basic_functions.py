@@ -67,14 +67,20 @@ class Basic_functions:
 
     def set_alarm(self, q):
         flag1 = False
-
+        m = None
         if 'remind' in q.lower():
             flag1 = True
             say('do you want me to remind you about anything specific sir?')
             m = take_command()
             if 'no' in m.lower():
                 say('okay sir')
-
+            elif 'yes' in m.lower() or 'yes remind me by saying' in m.lower() or 'yes say that' in m.lower():
+                m = m.lower().replace('yes', '')
+                m = m.lower().replace('yes remind me by saying', '')
+                m = m.lower().replace('yes say that', '')
+            else:
+                say('okay sir tell me what should i say')
+                m = take_command()
 
         flag = False
         m = ['minutes', 'seconds', 'minute', 'second']
@@ -157,6 +163,7 @@ class Basic_functions:
                     if i == query.lower():
                         say("you need to set the body content of the mail sir we can't keep it empty so tell me what should i set to")
                         query = take_command()
+                        break
             body += query
             say('Do you want to add anything else sir?')
             query = take_command()
