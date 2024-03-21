@@ -1,10 +1,12 @@
 import os
+import threading
 
-from OMNIPIVE.Functions.input_output_functions import say, take_command, ask_language, wishme
+from neuralintents import BasicAssistant
+
+from OMNIPIVE.Functions.input_output_functions import say, take_command, ask_language, wishme, ih
 from OMNIPIVE.Functions.Open_Websites import Websites
 from OMNIPIVE.Functions.Open_Close_Apps import Apps
 from OMNIPIVE.Functions.basic_functions import Basic_functions
-from neuralintents import BasicAssistant
 from OMNIPIVE.LLM import ChatGPT
 from OMNIPIVE.Functions.Personalized import Personalized
 from OMNIPIVE.Functions.ImageGeneration import generate_image
@@ -46,7 +48,9 @@ else:
 
 # wishme()
 # ask_language()
-p.check_for_user()
+# p.check_for_user()
+alarm_thread = threading.Thread(target=ih.face)
+alarm_thread.start()
 
 while True:
     say('Waiting for your commands sir!')

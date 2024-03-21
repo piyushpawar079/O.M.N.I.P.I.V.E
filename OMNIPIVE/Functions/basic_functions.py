@@ -9,18 +9,21 @@ import imghdr
 import smtplib
 import psutil
 import pyautogui as pyg
+import pygame
 import pyjokes
 from requests import get
 
 from OMNIPIVE.Functions.Alarm_Reminder import Alarm
 from OMNIPIVE.Functions.Manage_Game import manage
 from OMNIPIVE.Functions.input_output_functions import say, take_command
+from OMNIPIVE.GUI.main_gui import imageHandler
 from OMNIPIVE.Games.Main_Game import main
 
 
 class Basic_functions:
 
     alarm = Alarm()
+    ih = imageHandler()
 
     def take_notes(self):
         say('What should i name the text file sir?')
@@ -130,9 +133,16 @@ class Basic_functions:
 
     def mail(self):
         flag = False
-        say('tell me the gmail id of the person you want to send the mail to (without the @gmail.com)')
+        say('will you specify the mail id by speaking or typing sir (if the mail id is complicated please consider typing the mail id sir')
         query = take_command().lower()
-        l = query.split()
+        if 'speaking' in query or 'speak' in query:
+            say('tell me the gmail id of the person you want to send the mail to (without the @gmail.com)')
+            query = take_command().lower()
+            l = query.split()
+        elif 'typing' in query or 'type' in query:
+            query = input('Enter the gmail id of the person (without the @gmail.com)')
+            l = query.split()
+
         recipient = ''
         for i in l:
             recipient += i.lower()
@@ -204,6 +214,28 @@ class Basic_functions:
                 with open(name, 'rb') as f:
                     file_data = f.read()
                     file_name = f.name
+            else:
+                say('can you please specify the path of the document that you want to attach sir?')
+                q = input('Enter the path here: ')
+                d = os.getcwd()
+                if d != q:
+                    os.chdir(q)
+                l = q.split('\\')[-1]
+                if '.jpeg' in q or '.jpg' in q:
+                    main_type = 'image'
+                    name = l
+                    with open(name, 'rb') as f:
+                        file_data = f.read()
+                        sub_type = imghdr.what(f.name)
+                        file_name = f.name
+                elif '.pdf' in q:
+                    name = l
+                    main_type = 'application'
+                    sub_type = 'octet-stream'
+                    with open(name, 'rb') as f:
+                        file_data = f.read()
+                        file_name = f.name
+
             say('okay sir sending the mail')
 
         em = EmailMessage()
@@ -269,4 +301,5 @@ class Basic_functions:
     def exit(self):
         self.alarm.run = False
         say("Bye sir")
+        self.ih.Exit()
         sys.exit()

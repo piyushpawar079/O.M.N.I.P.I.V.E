@@ -5,8 +5,11 @@ from googletrans import Translator
 import pyttsx3
 import speech_recognition as sr
 
+from OMNIPIVE.GUI.main_gui import imageHandler
+
 language_code = 'en'
 language = 'English'
+ih = imageHandler()
 
 
 def ask_language():
@@ -22,6 +25,7 @@ def ask_language():
 
 
 def say(text):
+    ih.flag = False
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)  # Speed of speech
     # voice = engine.getProperty('voices')
@@ -35,6 +39,7 @@ def say(text):
     engine.say(text)
     engine.runAndWait()
     engine.stop()
+    ih.flag = True
 
 
 def wishme():
