@@ -1,6 +1,9 @@
+import os
+
 import pygame
 from enum import Enum
 from OMNIPIVE.Games.pong import Pong
+from OMNIPIVE.Games.TicTacToe.main import main_menu
 
 
 class GameState(Enum):
@@ -30,7 +33,7 @@ BLACK = (0, 0, 0)
 
 
 def launch_tic_tac_toe():
-    print('Launching tic tac toe')
+    main_menu()
 
 
 def launch_ping_pong():
@@ -91,6 +94,7 @@ def main():
     pygame.display.set_caption("Game Options")
     font = pygame.font.SysFont("comicsans", FONT_SIZE)  # Initialize font here
     current_state = GameState.MENU
+    os.environ['SDL_VIDEO_CENTERED'] = '1'
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     while True:
         # Initialize the screen inside the loop to avoid errors when the display surface is closed
@@ -103,6 +107,8 @@ def main():
             if next_state != GameState.MENU:
                 current_state = next_state
             else:
+                pygame.display.quit()
+                pygame.quit()
                 break
 
         if current_state == GameState.TIC_TAC_TOE:

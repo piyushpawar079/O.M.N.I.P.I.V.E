@@ -2,6 +2,7 @@ import datetime
 import os
 import sys
 import threading
+import time
 from datetime import datetime
 from email.message import EmailMessage
 import imghdr
@@ -9,7 +10,6 @@ import imghdr
 import smtplib
 import psutil
 import pyautogui as pyg
-import pygame
 import pyjokes
 from requests import get
 
@@ -127,9 +127,22 @@ class Basic_functions:
             say('Done setting the alarm sir.')
 
     def Game(self):
+        self.close_gui()
+        time.sleep(5)
         game_thread = threading.Thread(target=manage)
         game_thread.start()
         main()
+        self.start_gui()
+
+    def start_gui(self):
+        gui_thread = threading.Thread(target=self.ih.face)
+        gui_thread.start()
+
+    def close_gui(self):
+        self.ih.run = False
+
+    def min(self):
+        self.ih.minimize_gui()
 
     def mail(self):
         flag = False
@@ -140,7 +153,7 @@ class Basic_functions:
             query = take_command().lower()
             l = query.split()
         elif 'typing' in query or 'type' in query:
-            query = input('Enter the gmail id of the person (without the @gmail.com)')
+            query = input('Enter the gmail id of the person (without the @gmail.com): ')
             l = query.split()
 
         recipient = ''
@@ -167,13 +180,12 @@ class Basic_functions:
             d = ["i don't want to", "nothing", "no", "don't set", "don't"]
             if query.lower() in d:
                 say("you need to set the body content of the mail sir we can't keep it empty so tell me what should i set to")
-                query = take_command()
             else:
                 for i in d:
                     if i == query.lower():
                         say("you need to set the body content of the mail sir we can't keep it empty so tell me what should i set to")
-                        query = take_command()
                         break
+            query = take_command()
             body += query
             say('Do you want to add anything else sir?')
             query = take_command()
@@ -218,17 +230,20 @@ class Basic_functions:
                 say('can you please specify the path of the document that you want to attach sir?')
                 q = input('Enter the path here: ')
                 d = os.getcwd()
+                l = q.split('\\')[-1]
+                print(q)
+                q = '\\'.join(q.split('\\')[:-1])
+                print(q)
                 if d != q:
                     os.chdir(q)
-                l = q.split('\\')[-1]
-                if '.jpeg' in q or '.jpg' in q:
+                if '.jpeg' in l or '.jpg' in l:
                     main_type = 'image'
                     name = l
                     with open(name, 'rb') as f:
                         file_data = f.read()
                         sub_type = imghdr.what(f.name)
                         file_name = f.name
-                elif '.pdf' in q:
+                elif '.pdf' in l:
                     name = l
                     main_type = 'application'
                     sub_type = 'octet-stream'
@@ -301,5 +316,5 @@ class Basic_functions:
     def exit(self):
         self.alarm.run = False
         say("Bye sir")
-        self.ih.Exit()
+        self.ih.run = False
         sys.exit()

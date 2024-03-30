@@ -20,7 +20,7 @@ class Check:
         }
 
         for i in mappings.keys():
-            if i in query.lower():
+            if i in query.lower() or query.lower() in i:
                 mappings[i]()
 
 

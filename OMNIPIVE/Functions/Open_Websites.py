@@ -9,6 +9,7 @@ from word2number import w2n
 
 from OMNIPIVE.Functions.Checking_For_More_Functions import Check
 from OMNIPIVE.Functions.input_output_functions import take_command, say
+from OMNIPIVE.Functions.basic_functions import Basic_functions
 
 
 class Websites:
@@ -22,10 +23,15 @@ class Websites:
         'third': 2,
         'fourth': 3,
         'fifth': 4,
-        'sixth': 5
+        'sixth': 5,
+        'sevent': 7,
+        'eighth': 8,
+        'ninth': 9,
+        'tenth': 10
     }
-    PATH = r"C:\Users\bhush\OneDrive\Desktop\PAVAN\VS_Code\python\SELENIUM!!\chromedriver.exe"
+    PATH = r"C:\Users\bhush\OneDrive\Desktop\PAVAN\VS_Code\python\SELENIUM!!\chromedriver-win64\chromedriver.exe"
     c = Check()
+    bf = Basic_functions()
 
     def __init__(self):
         self.stop_flag = False
@@ -34,13 +40,13 @@ class Websites:
 
     def open_website(self, query):
         for key, value in self.sites.items():
-            if f'open {key}'.lower() in query.lower():
+            if 'open' in query.lower() and f'{key}'.lower() in query.lower():
                 say(f"Opening {key} sir.")
                 service = Service(executable_path=self.PATH)
-
                 driver = webdriver.Chrome(service=service)
                 driver.maximize_window()
                 driver.get(f'{value}')
+                self.bf.close_gui()
                 while not self.stop_flag:
                     search = None
                     say('Do you want to search for anything sir (please reply in Yes or No)')
@@ -75,6 +81,7 @@ class Websites:
                             say('What should I do next sir?')
                             query = take_command()
                             self.finish = self.process_query(query, driver)
+                self.bf.start_gui()
 
     def youtube_search(self, driver, key):
         say('Okay sir, then tell me what should i do?')
@@ -83,6 +90,8 @@ class Websites:
 
             if 'close' in query.lower() or 'exit' in query.lower():
                 say(f'Okay sir, closing {key}')
+                pyg.hotkey('ctrl', 'W')
+                self.stop_flag = True
                 break
 
             elif 'open' in query.lower() and 'video' in query.lower():
@@ -115,12 +124,20 @@ class Websites:
 
         elif 'open' in query.lower() and 'video' in query.lower():
             for key, value in self.nums.items():
-                if f'open the {key} video' in query.lower():
-                    elements = driver.find_elements(By.CSS_SELECTOR, "#contents ytd-video-renderer")
-                    element = elements[int(f'{value}')]
-                    element.click()
-                    self.b += 1
-                    continue
+                if 'open' in query.lower() and f'{key} video' in query.lower():
+                    if self.b != 2:
+                        elements = driver.find_elements(By.CSS_SELECTOR, "#contents ytd-video-renderer")
+                        element = elements[int(f'{value}')]
+                        element.click()
+                        self.b += 1
+                        continue
+                    elif self.b == 2:
+                        elements = driver.find_elements(By.ID, "video-title")
+                        print(elements)
+                        element = elements[int(f'{value}')]
+                        element.click()
+                        self.b += 1
+                        continue
 
         if 'pause' in query.lower() and 'video' in query.lower():
             driver.execute_script("document.querySelector('video').pause();")
@@ -173,7 +190,7 @@ class Websites:
             pyg.hotkey('alt', 'tab')
 
         elif 'close' in query.lower() and 'tab' in query.lower():
-            pyg.press('ctrl', 'w')
+            pyg.hotkey('ctrl', 'w')
             self.stop_flag = True
             return True
 

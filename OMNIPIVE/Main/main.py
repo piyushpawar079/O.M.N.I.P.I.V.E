@@ -1,9 +1,8 @@
 import os
-import threading
 
 from neuralintents import BasicAssistant
 
-from OMNIPIVE.Functions.input_output_functions import say, take_command, ask_language, wishme, ih
+from OMNIPIVE.Functions.input_output_functions import say, take_command, ask_language, wishme
 from OMNIPIVE.Functions.Open_Websites import Websites
 from OMNIPIVE.Functions.Open_Close_Apps import Apps
 from OMNIPIVE.Functions.basic_functions import Basic_functions
@@ -30,7 +29,7 @@ mappings = {
     "battery": b.battery,
     "chatgpt": ChatGPT.ChatGpt,
     "exit": b.exit,
-    "games": b.Game,
+    # "games": b.Game,
     "mail": b.mail,
     "weather": p.get_weather_info,
     "news": p.get_news,
@@ -49,8 +48,7 @@ else:
 # wishme()
 # ask_language()
 # p.check_for_user()
-alarm_thread = threading.Thread(target=ih.face)
-alarm_thread.start()
+b.start_gui()
 
 while True:
     say('Waiting for your commands sir!')

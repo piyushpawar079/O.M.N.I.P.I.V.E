@@ -16,6 +16,9 @@ def manage():
         time.sleep(2)
         keyboard.press('enter')
         pong()
+    elif 'exit' in query.lower():
+        pyg.moveTo(x=1486, y=170)
+        pyg.click()
     elif 'tic' in query.lower() or 'x' in query.lower() or 'first' in query.lower():
         say('Launching tic tac toe game for you sir..')
         keyboard.press('enter')
