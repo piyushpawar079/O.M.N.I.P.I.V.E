@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/PAVAN.iml" filepath="$PROJECT_DIR$/.idea/PAVAN.iml" />
-      <module fileurl="file://$PROJECT_DIR$/OMNIPIVE/Games/TicTacToe/.idea/TicTacToe.iml" filepath="$PROJECT_DIR$/OMNIPIVE/Games/TicTacToe/.idea/TicTacToe.iml" />
     </modules>
   </component>
 </project>

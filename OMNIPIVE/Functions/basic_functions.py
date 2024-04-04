@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 import os
 import sys
 import threading
@@ -134,6 +134,17 @@ class Basic_functions:
         main()
         self.start_gui()
 
+    def tell_time(self):
+        hour = int(dt.datetime.now().hour)
+        tt = time.strftime('%I:%M %p')
+
+        if 0 < hour < 12:
+            say(f'Good Morning Sir. Its {tt}')
+        elif 12 <= hour < 18:
+            say(f"Good Afternoon Sir. Its {tt}")
+        else:
+            say(f"Good Evening Sir, Its {tt}")
+
     def start_gui(self):
         gui_thread = threading.Thread(target=self.ih.face)
         gui_thread.start()
@@ -171,6 +182,10 @@ class Basic_functions:
         else:
             say('Okay sir, tell me the what should i write')
             query = take_command()
+            if 'set the subject as' in query.lower() or 'subject as' in query.lower() or 'as' in query.lower():
+                query = query.lower().replace('set the subject as', '')
+                query = query.lower().replace('subject as', '')
+                query = query.lower().replace('as', '')
             subject = query
 
         say("tell me the body content of the mail sir")
@@ -180,12 +195,17 @@ class Basic_functions:
             d = ["i don't want to", "nothing", "no", "don't set", "don't"]
             if query.lower() in d:
                 say("you need to set the body content of the mail sir we can't keep it empty so tell me what should i set to")
+                query = take_command()
             else:
                 for i in d:
                     if i == query.lower():
                         say("you need to set the body content of the mail sir we can't keep it empty so tell me what should i set to")
+                        query = take_command()
                         break
-            query = take_command()
+            if 'set the body content as' in query.lower() or 'body as' in query.lower() or 'body content as' in query.lower():
+                query = query.lower().replace('set the body content as', '')
+                query = query.lower().replace('body as', '')
+                query = query.lower().replace('body content as', '')
             body += query
             say('Do you want to add anything else sir?')
             query = take_command()
@@ -199,57 +219,57 @@ class Basic_functions:
 
         if 'no' in query.lower():
             say('okay sir sending the mail')
+        # else:
+        #     d = os.getcwd()
+        #     if d != r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Documents':
+        #         os.chdir(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Documents')
+        #     flag = True
+        #     say('tell me sir which document should i attach?')
+        #     query = take_command()
+        #     photos = ['groupphoto']
+        #     pdfs = ['machinelearning']
+        #     name = ''
+        #
+        #     for i in query.split():
+        #         name += i
+        #     if photos[0] in name:
+        #         main_type = 'image'
+        #         name = 'groupphoto.jpeg'
+        #         with open(name, 'rb') as f:
+        #             file_data = f.read()
+        #             sub_type = imghdr.what(f.name)
+        #             file_name = f.name
+        #     elif pdfs[0] in name:
+        #         name = 'machinelearning.pdf'
+        #         main_type = 'application'
+        #         sub_type = 'octet-stream'
+        #         with open(name, 'rb') as f:
+        #             file_data = f.read()
+        #             file_name = f.name
         else:
+            say('can you please specify the path of the document that you want to attach sir?')
+            q = input('Enter the path here: ')
             d = os.getcwd()
-            if d != r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Documents':
-                os.chdir(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Documents')
-            flag = True
-            say('tell me sir which document should i attach?')
-            query = take_command()
-            photos = ['groupphoto']
-            pdfs = ['machinelearning']
-            name = ''
-
-            for i in query.split():
-                name += i
-            if photos[0] in name:
+            l = q.split('\\')[-1]
+            print(q)
+            q = '\\'.join(q.split('\\')[:-1])
+            print(q)
+            if d != q:
+                os.chdir(q)
+            if '.jpeg' in l or '.jpg' in l:
                 main_type = 'image'
-                name = 'groupphoto.jpeg'
+                name = l
                 with open(name, 'rb') as f:
                     file_data = f.read()
                     sub_type = imghdr.what(f.name)
                     file_name = f.name
-            elif pdfs[0] in name:
-                name = 'machinelearning.pdf'
+            elif '.pdf' in l:
+                name = l
                 main_type = 'application'
                 sub_type = 'octet-stream'
                 with open(name, 'rb') as f:
                     file_data = f.read()
                     file_name = f.name
-            else:
-                say('can you please specify the path of the document that you want to attach sir?')
-                q = input('Enter the path here: ')
-                d = os.getcwd()
-                l = q.split('\\')[-1]
-                print(q)
-                q = '\\'.join(q.split('\\')[:-1])
-                print(q)
-                if d != q:
-                    os.chdir(q)
-                if '.jpeg' in l or '.jpg' in l:
-                    main_type = 'image'
-                    name = l
-                    with open(name, 'rb') as f:
-                        file_data = f.read()
-                        sub_type = imghdr.what(f.name)
-                        file_name = f.name
-                elif '.pdf' in l:
-                    name = l
-                    main_type = 'application'
-                    sub_type = 'octet-stream'
-                    with open(name, 'rb') as f:
-                        file_data = f.read()
-                        file_name = f.name
 
             say('okay sir sending the mail')
 

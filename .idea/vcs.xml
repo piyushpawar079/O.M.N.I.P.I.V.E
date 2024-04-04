@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/OMNIPIVE/Games/Pong_Game" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/OMNIPIVE/Games/TicTacToe" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/OMNIPIVE/Games/TicTacToe/ttt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/OMNIPIVE/Games/pong/p1" vcs="Git" />
   </component>

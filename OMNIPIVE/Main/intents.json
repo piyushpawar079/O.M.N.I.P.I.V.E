@@ -13,6 +13,12 @@
       "context": [""]
     },
     {
+      "tag": "time",
+      "patterns": ["what is the time?", "can you please tell me the time", "time"],
+      "responses": [""],
+      "context": [""]
+    },
+    {
       "tag": "thanks",
       "patterns": ["Thank you", "Thanks", "Thanks a lot", "Thank you so much"],
       "responses": ["You're welcome!", "No problem!", "Glad I could help!"],
@@ -67,21 +73,8 @@
       "patterns": [
         "tell me stock related news today",
         "How's the stock performing today?",
-        "stocks"
-      ],
-      "responses": [
-        ""
-      ],
-      "context": [
-        ""
-      ]
-    },
-    {
-      "tag": "change_preferences",
-      "patterns": [
-        "can you change my preferences?",
-        "I want to change my preferences",
-        "change preferences"
+        "stocks",
+        "stock"
       ],
       "responses": [
         ""
@@ -226,8 +219,10 @@
     {
       "tag": "chatgpt",
       "patterns": [
-        "chatgpt",
-        "ask chatgpt"
+        "chatgpt who is",
+        "ask chatgpt who is",
+        "who is",
+        "what is"
       ],
       "responses": [""],
       "context": [""]

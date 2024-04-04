@@ -7,9 +7,7 @@ from OMNIPIVE.Functions.Clap import MainClapExe
 from OMNIPIVE.Functions.input_output_functions import say, take_command
 
 
-# function to retrieve and display an image based on the selected category
 def display_image(category, img_size=(600, 400)):
-    # make a request to the Unsplash API to get a random image
     url = f"https://api.unsplash.com/photos/random?query={category}&orientation=landscape&client_id=1n7sSMtCh8Hs_MrBOjhQ1SygTDA-BJ550UdX3rwLYZQ"
     data = requests.get(url).json()
     img_data = requests.get(data["urls"]["regular"]).content
@@ -42,14 +40,14 @@ def create_window_and_display_image(category, root=None):
 def generate_image():
     prev = None
     image_window = None
-    say('Tell me what category you want the image of, or say "stop" to exit.')
     while True:
+        say('Tell me what category you want the image of, or say "stop" to exit.')
         category = take_command()
 
         if not category:
             continue
 
-        if 'stop' in category:
+        if 'stop' in category.lower() or 'exit' in category.lower():
             say('Exiting...')
             if image_window:
                 image_window.destroy()
@@ -57,7 +55,7 @@ def generate_image():
         elif 'clap' in category.lower():
             say("Waiting for clap to change the image")
             i = 0
-            while i != 3:
+            while i != 2:
                 say('waiting..')
                 if MainClapExe():
                     say(f'Regenerating image of {prev}.')

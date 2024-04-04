@@ -3,7 +3,7 @@ import os
 import pygame
 from enum import Enum
 from OMNIPIVE.Games.pong import Pong
-from OMNIPIVE.Games.TicTacToe.main import main_menu
+from OMNIPIVE.Games.ttt.main import main_menu
 
 
 class GameState(Enum):

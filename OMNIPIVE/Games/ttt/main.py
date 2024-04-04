@@ -1,6 +1,7 @@
 import pygame as p
 import time
 
+
 p.init()
 
 
@@ -20,7 +21,7 @@ class Square(p.sprite.Sprite):
     def update(self):
         self.rect.center = (self.x, self.y)
 
-    def clicked(self, x_val, y_val):
+    def clicked(self, x_val, y_val, win):
         global turn, won
 
         if self.content == '':
@@ -32,19 +33,19 @@ class Square(p.sprite.Sprite):
                     self.image = x_image
                     self.image = p.transform.scale(self.image, (self.width, self.height))
                     turn = 'o'
-                    checkWinner('x')
+                    checkWinner('x', win)
 
                     if not won:
-                        CompMove()
+                        CompMove(win)
 
                 else:
                     self.image = o_image
                     self.image = p.transform.scale(self.image, (self.width, self.height))
                     turn = 'x'
-                    checkWinner('o')
+                    checkWinner('o', win)
 
 
-def checkWinner(player):
+def checkWinner(player, win):
     global background, won, startX, startY, endX, endY
 
     for i in range(8):
@@ -54,17 +55,19 @@ def checkWinner(player):
             break
 
     if won:
-        Update()
-        drawLine(startX, startY, endX, endY)
+        Update(win)
+        drawLine(startX, startY, endX, endY, win)
         square_group.empty()
         w = "\\" + player.upper()
-        m = r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\TicTacToe'
+        m = r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt'
         background = p.image.load( m + w + ' Wins.png')
         background = p.transform.scale(background, (WIDTH, HEIGHT))
+        Update(win)
+        time.sleep(3)
+        return_to_menu()
 
 
-
-def CompMove():
+def CompMove(win):
     global move, background
     move = True
 
@@ -89,14 +92,17 @@ def CompMove():
     if not move:
         for square in squares:
             if square.number == compMove:
-                square.clicked(square.x, square.y)
+                square.clicked(square.x, square.y, win)
 
     else:
-        Update()
+        Update(win)
         time.sleep(1)
         square_group.empty()
-        background = p.image.load(r'/OMNIPIVE/Games/tic-tac-toe/Tie Game.png')
+        background = p.image.load(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt\Tie Game.png')
         background = p.transform.scale(background, (WIDTH, HEIGHT))
+        Update(win)
+        time.sleep(3)
+        return_to_menu()
 
 
 def Winner(player):
@@ -204,24 +210,23 @@ def getPos(n1, n2):
             endY = sqs.y
 
 
-def drawLine(x1, y1, x2, y2):
+def drawLine(x1, y1, x2, y2, win):
     p.draw.line(win, (0, 0, 0), (x1, y1), (x2, y2), 15)
     p.display.update()
     time.sleep(2)
 
 
-def Update():
+def Update(win):
     win.blit(background, (0, 0))
     square_group.draw(win)
     square_group.update()
     p.display.update()
 
-
-
-
+WIDTH, HEIGHT = 500, 500
 
 def main_menu():
     running = True
+    win = p.display.set_mode((WIDTH, HEIGHT))
     while running:
         win.fill((49, 112, 143))  # Set a beautiful background color
 
@@ -254,9 +259,9 @@ def main_menu():
                 mouse_pos = p.mouse.get_pos()
 
                 if one_player_button.collidepoint(mouse_pos):
-                    start_one_player_game()
+                    start_one_player_game(win)
                 elif two_players_button.collidepoint(mouse_pos):
-                    start_two_players_game()
+                    start_two_players_game(win)
                 elif exit_button.collidepoint(mouse_pos):
                     running = False
                     p.quit()
@@ -273,16 +278,14 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(textobj, textrect)
 
 
-WIDTH, HEIGHT = 1100, 700
 
-win = p.display.set_mode((WIDTH, HEIGHT))
 p.display.set_caption('Tic Tac Toe')
 clock = p.time.Clock()
 
-blank_image = p.image.load(r'/OMNIPIVE/Games/tic-tac-toe/Blank.png')
-x_image = p.image.load(r'/OMNIPIVE/Games/tic-tac-toe/x.png')
-o_image = p.image.load(r'/OMNIPIVE/Games/tic-tac-toe/o.png')
-background = p.image.load(r'/OMNIPIVE/Games/tic-tac-toe/Background.png')
+blank_image = p.image.load(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt\Blank.png')
+x_image = p.image.load(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt\x.png')
+o_image = p.image.load(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt\o.png')
+background = p.image.load(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt\Background.png')
 
 background = p.transform.scale(background, (WIDTH, HEIGHT))
 
@@ -329,7 +332,7 @@ def return_to_menu():
     main_menu()
 
 
-def start_one_player_game():
+def start_one_player_game(win):
     global turn
     turn = 'x'  # Set the turn for one player game
     run = True
@@ -342,14 +345,16 @@ def start_one_player_game():
             elif event.type == p.MOUSEBUTTONDOWN and turn == 'x':
                 mx, my = p.mouse.get_pos()
                 for s in squares:
-                    s.clicked(mx, my)
+                    s.clicked(mx, my, win)
 
-        Update()
-    reset_game()
+        Update(win)
+        if win == 'tie game':
+            run = False
+
     return_to_menu()
 
 
-def start_two_players_game():
+def start_two_players_game(win):
     global turn
     turn = 'x'  # Set the turn for two players game
     run = True
@@ -370,28 +375,28 @@ def start_two_players_game():
                             square.image = x_image
                             square.image = p.transform.scale(square.image, (square.width, square.height))
                             turn = 'o'
-                            checkWinner('x')
+                            checkWinner('x', win)
                         else:
                             square.image = o_image
                             square.image = p.transform.scale(square.image, (square.width, square.height))
                             turn = 'x'
-                            checkWinner('o')
+                            checkWinner('o', win)
 
         if '' not in board[1:]:
             time.sleep(2)
             square_group.empty()
-            background = p.image.load(r'/OMNIPIVE/Games/tic-tac-toe/Tie Game.png')
+            background = p.image.load(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt\Tie Game.png')
             background = p.transform.scale(background, (WIDTH, HEIGHT))
-            Update()
+            Update(win)
             time.sleep(2)
             reset_game()
             return_to_menu()
             break
-        Update()
+        Update(win)
 
 
 def reset_game():
-    global board, turn, won
+    global board, turn, won, background, square_group
     board = ['' for i in range(10)]
     turn = 'x'
     won = False
@@ -399,14 +404,19 @@ def reset_game():
         square.content = ''
         square.image = blank_image
         square.image = p.transform.scale(square.image, (square.width, square.height))
-    # num = 1
-    # for y in range(1, 4):
-    #     for x in range(1, 4):
-    #         sq = Square(x, y, num)
-    #         square_group.add(sq)
-    #         squares.append(sq)
-    #
-    #         num += 1
+    background = p.image.load(r'C:\Users\bhush\PycharmProjects\PAVAN\OMNIPIVE\Games\ttt\Background.png')
+    background = p.transform.scale(background, (WIDTH, HEIGHT))
+
+    # Recreate Square objects and add them back to square_group
+    square_group = p.sprite.Group()
+    squares.clear()
+    num = 1
+    for y in range(1, 4):
+        for x in range(1, 4):
+            sq = Square(x, y, num)
+            square_group.add(sq)
+            squares.append(sq)
+            num += 1
 
 
 if __name__ == '__main__':

@@ -29,13 +29,13 @@ mappings = {
     "battery": b.battery,
     "chatgpt": ChatGPT.ChatGpt,
     "exit": b.exit,
-    # "games": b.Game,
+    "games": b.Game,
     "mail": b.mail,
     "weather": p.get_weather_info,
     "news": p.get_news,
-    "stock": p.get_news,
-    "change_preferences": p.change_preferences,
-    "images": generate_image
+    "stock": p.get_stock_news,
+    "images": generate_image,
+    "time": b.tell_time
 }
 
 assistant = BasicAssistant(intents_data='intents.json', method_mappings=mappings)
@@ -45,9 +45,8 @@ else:
     assistant.fit_model()
     assistant.save_model()
 
-# wishme()
+wishme()
 # ask_language()
-# p.check_for_user()
 b.start_gui()
 
 while True:
