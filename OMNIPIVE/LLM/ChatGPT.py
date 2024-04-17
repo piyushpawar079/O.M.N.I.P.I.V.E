@@ -4,16 +4,14 @@ from OMNIPIVE.Functions.input_output_functions import say
 
 messages = [
     {"role": "system", "content": "I'm the latest J.A.R.V.I.S. AI, designed by Piyush Pawar with capabilities to access systems through various programming languages "
-                                  "using modules like webbrowser, pyautogui, time, pyperclip, random, mouse, wikipedia, keyboard, datetime, tkinter, PyQt5, etc."},
-    {"role": "user", "content": "Open Google Chrome."},
-    {"role": "assistant", "content": "```python\nimport webbrowser\nwebbrowser.open('https://www.google.com')```"},
-    {"role": "system", "content": "Python includes built-in functions you can use. For instance:"}
+                                  "using modules like webbrowser, pyautogui, time, pyperclip, random, mouse, wikipedia, keyboard, datetime, tkinter, PyQt5, etc."}
             ]
 
 
 def ChatGpt(text):
 
     global messages
+    text += ' Give me to the point answer and in 2 to 3 sentences only.'
     messages.append({
         'role': 'user',
         'content': text

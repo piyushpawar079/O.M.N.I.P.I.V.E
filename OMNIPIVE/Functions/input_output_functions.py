@@ -83,6 +83,7 @@ def take_command():
         return text
 
     except sr.UnknownValueError:
+        print(f"User Said (original): yes")
         return 'yes'
 
     except sr.RequestError as e:

@@ -70,20 +70,20 @@ class Basic_functions:
 
     def set_alarm(self, q):
         flag1 = False
-        m = None
+        ms = None
         if 'remind' in q.lower():
             flag1 = True
             say('do you want me to remind you about anything specific sir?')
-            m = take_command()
-            if 'no' in m.lower():
-                say('okay sir')
-            elif 'yes' in m.lower() or 'yes remind me by saying' in m.lower() or 'yes say that' in m.lower():
-                m = m.lower().replace('yes', '')
-                m = m.lower().replace('yes remind me by saying', '')
-                m = m.lower().replace('yes say that', '')
+            ms = take_command()
+            if 'no' in ms.lower():
+                ms = None
+            elif 'yes remind me by saying' in ms.lower():
+                ms = ms.lower().replace('yes remind me by saying', '')
+            elif 'yes say that' in ms.lower():
+                ms = ms.lower().replace('yes say that', '')
             else:
                 say('okay sir tell me what should i say')
-                m = take_command()
+                ms = take_command()
 
         flag = False
         m = ['minutes', 'seconds', 'minute', 'second']
@@ -98,7 +98,7 @@ class Basic_functions:
             else:
                 query = q
 
-            if len(query) < 15 and ':' not in query:
+            if len(query) < 15 and ':' not in query and 'seconds' not in query:
                 if 'p' in query.lower():
                     time = query.split('p')[0].strip()
                     extra = 'p.m.'
@@ -117,7 +117,9 @@ class Basic_functions:
                     minute = time[2:]
 
                 query = hour + ':' + minute + ' ' + extra
-        self.alarm.initialize(query, m)
+                print(query)
+
+        self.alarm.initialize(query, ms)
         alarm_thread = threading.Thread(target=self.alarm.check_and_alarm)
         alarm_thread.start()
 
@@ -132,6 +134,7 @@ class Basic_functions:
         game_thread = threading.Thread(target=manage)
         game_thread.start()
         main()
+        time.sleep(1)
         self.start_gui()
 
     def tell_time(self):
@@ -145,9 +148,14 @@ class Basic_functions:
         else:
             say(f"Good Evening Sir, Its {tt}")
 
-    def start_gui(self):
-        gui_thread = threading.Thread(target=self.ih.face)
-        gui_thread.start()
+    def start_gui(self, i=0):
+        # if i:
+        #     gui_thread = threading.Thread(target=self.ih.face)
+        #     gui_thread.start()
+        # else:
+        self.ih.run = True
+        # gui_thread = threading.Thread(target=self.ih.face)
+        # gui_thread.start()
 
     def close_gui(self):
         self.ih.run = False

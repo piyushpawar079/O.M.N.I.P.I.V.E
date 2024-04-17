@@ -1,9 +1,11 @@
 from OMNIPIVE.Functions.basic_functions import Basic_functions
+from OMNIPIVE.GUI.main_gui import imageHandler
 
 
 class Check:
 
     bf = Basic_functions()
+    ih = imageHandler()
 
     def in_Basic_functions(self, query):
         mappings = {
@@ -16,12 +18,14 @@ class Check:
             'battery': self.bf.battery,
             'functions': self.bf.function,
             'exit': self.bf.exit,
-            'take notes': self.bf.take_notes
+            'take notes': self.bf.take_notes,
+            'minimize': self.ih.minimize_gui
         }
 
         for i in mappings.keys():
             if i in query.lower() or query.lower() in i:
                 mappings[i]()
+                return True
 
 
 

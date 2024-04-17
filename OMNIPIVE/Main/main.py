@@ -1,4 +1,5 @@
 import os
+import time
 
 from neuralintents import BasicAssistant
 
@@ -45,13 +46,16 @@ else:
     assistant.fit_model()
     assistant.save_model()
 
+b.start_gui(i=1)
 wishme()
-# ask_language()
-b.start_gui()
+ask_language()
 
 while True:
     say('Waiting for your commands sir!')
     query = take_command()
+    if 'yes' in query.lower():
+        time.sleep(1)
+        continue
     result = assistant.process_input(query, query)
     if result is not None:
         say(result)

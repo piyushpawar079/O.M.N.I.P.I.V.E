@@ -13,8 +13,9 @@ def manage():
     if 'pong' in query.lower() or 'second' in query.lower():
         say('Launching Pong game for you sir..')
         pyg.hotkey('up')
+        # keyboard.press('up')
         time.sleep(2)
-        keyboard.press('enter')
+        # keyboard.press('enter')
         pyg.hotkey('enter')
         pong()
     elif 'exit' in query.lower():
@@ -34,14 +35,14 @@ def pong():
     say('which mode would you like to play sir?')
     query = take_command()
     flag = False
-    if not query:
+    if not query or 'yes' in query.lower():
         pass
 
     if 'single' in query.lower() or 'one player' in query.lower():
         pyg.moveTo(x=919, y=420)
         pyg.click()
         flag = True
-    elif 'two player' in query.lower():
+    elif 'two player' in query.lower() or 'double' in query.lower():
         pyg.moveTo(x=920, y=552)
         pyg.click()
         flag = True
@@ -85,7 +86,7 @@ def pong():
                 pyg.moveTo(x=943, y=476)
                 time.sleep(1)
                 pyg.click()
-        manage()
+    manage()
 
 
 def ttt():

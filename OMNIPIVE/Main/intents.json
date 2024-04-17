@@ -8,7 +8,7 @@
     },
     {
       "tag": "exit",
-      "patterns": ["exit", "shutdown", "close yourself"],
+      "patterns": ["exit", "bye bye", "good bye"],
       "responses": ["Goodbye! Have a great day!", "See you later! Take care!", "Bye! Have a wonderful day!"],
       "context": [""]
     },
@@ -219,8 +219,8 @@
     {
       "tag": "chatgpt",
       "patterns": [
-        "chatgpt who is",
-        "ask chatgpt who is",
+        "chat GPT who is",
+        "ask chat GPT who is",
         "who is",
         "what is"
       ],

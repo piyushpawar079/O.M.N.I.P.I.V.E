@@ -46,17 +46,17 @@ class Websites:
                 driver = webdriver.Chrome(service=service)
                 driver.maximize_window()
                 driver.get(f'{value}')
-                self.bf.close_gui()
+                # self.bf.close_gui()
                 while not self.stop_flag:
                     search = None
                     say('Do you want to search for anything sir (please reply in Yes or No)')
                     query = take_command()
                     if 'no' in query.lower():
-                        if f'{key}' == 'youtube':
-                            self.youtube_search(driver, f'{key}')
-                        else:
-                            say(f'okay sir, closing {key} now')
-                            self.stop_flag = True
+                        # if f'{key}' == 'youtube':
+                        #     self.youtube_search(driver, f'{key}')
+                        # else:
+                        say(f'okay sir, closing {key} now')
+                        self.stop_flag = True
                     else:
                         say('What should I search for,sir?')
                         self.b += 1
@@ -65,10 +65,10 @@ class Websites:
                             search = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.TAG_NAME, 'textarea')))
                         elif f'{key}' == 'youtube':
                             search = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.TAG_NAME, 'input')))
-                        elif f'{key}' == 'chat gpt':
-                            search = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "prompt-textarea")))
-                        elif f'{key}' == 'gemini':
-                            search = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.TAG_NAME, "rich-textarea")))
+                        # elif f'{key}' == 'chat gpt':
+                        #     search = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, "prompt-textarea")))
+                        # elif f'{key}' == 'gemini':
+                        #     search = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.TAG_NAME, "rich-textarea")))
 
                         if 'for' in query.lower():
                             query = query.split('for')[1].strip().title()
@@ -81,7 +81,7 @@ class Websites:
                             say('What should I do next sir?')
                             query = take_command()
                             self.finish = self.process_query(query, driver)
-                self.bf.start_gui()
+                # self.bf.start_gui()
 
     def youtube_search(self, driver, key):
         say('Okay sir, then tell me what should i do?')

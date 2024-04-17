@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 
 from OMNIPIVE.Functions.Clap import MainClapExe
 from OMNIPIVE.Functions.input_output_functions import say, take_command
-
+from OMNIPIVE.Functions.Checking_For_More_Functions import Check
 
 def display_image(category, img_size=(600, 400)):
     url = f"https://api.unsplash.com/photos/random?query={category}&orientation=landscape&client_id=1n7sSMtCh8Hs_MrBOjhQ1SygTDA-BJ550UdX3rwLYZQ"
@@ -38,6 +38,7 @@ def create_window_and_display_image(category, root=None):
 
 # function to generate the image based on user input from console
 def generate_image():
+    ch = Check()
     prev = None
     image_window = None
     while True:
@@ -64,6 +65,8 @@ def generate_image():
                     image_window = create_window_and_display_image(prev)
                 i += 1
         else:
+            if ch.in_Basic_functions(category):
+                continue
             prev = category
             say(f'Displaying the image of {category}.')
             if image_window:
