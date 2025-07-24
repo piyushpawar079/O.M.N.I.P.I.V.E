@@ -69,7 +69,7 @@ Before running O.M.N.I.P.I.V.E., ensure you have:
 
 1. **Clone the repository**
    ```bash
-   [git clone https://github.com/piyushpawar079/O.M.N.I.P.I.V.E.git]
+   git clone https://github.com/piyushpawar079/O.M.N.I.P.I.V.E.git
    cd O.M.N.I.P.I.V.E
    ```
 
