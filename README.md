@@ -104,5 +104,3 @@ If you encounter any issues or have questions:
 - Create an issue on GitHub
 - Check the documentation
 - Contact the development team
-
-**Made with ❤️ by Piyush Pawar**
